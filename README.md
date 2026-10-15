@@ -52,3 +52,41 @@ Métricas Quantitativas: Os resultados de cada arquivo são consolidados em uma 
 Análise Qualitativa: Geração automática de espectrogramas comparativos lado a lado (Sinal Ruidoso vs. Filtrado por Wiener vs. Sinal Limpo).
 
 Exportação Prática: Todos os sinais processados (_wiener), espectrogramas e tabelas de métricas são compactados em um único arquivo .zip para facilitar o armazenamento e a transferência dos resultados.
+
+
+🌊 PAM-Denoising: Rede Neural Convolucional (CNN)
+Repositório dedicado à implementação de uma Rede Neural Convolucional (CNN) para redução de ruído em sinais de Monitoramento Acústico Passivo (PAM). O código abrange o pipeline completo de deep learning: desde a geração de conjuntos de dados sintéticos até a arquitetura da rede, rotina de treinamento, reconstrução temporal do sinal e extração de métricas de avaliação.
+
+📋 Visão Geral
+A implementação foi projetada para processar múltiplos arquivos de áudio ruidosos em lote. O sistema realiza o pareamento automático com os respectivos sinais limpos de referência, calcula métricas de desempenho para validar o aprendizado do modelo e gera espectrogramas comparativos para análise qualitativa.
+
+🛠️ Tecnologias e Ambiente
+O sistema foi desenvolvido em Python e é perfeitamente compatível com o ambiente Google Colab, possuindo suporte nativo para aceleração por GPU. As principais bibliotecas utilizadas são:
+
+TensorFlow (Keras): Construção da arquitetura da rede neural convolucional e gerenciamento da rotina de treinamento.
+
+librosa: Operações de leitura, segmentação e manipulação de sinais de áudio.
+
+NumPy: Processamento de arrays e operações matriciais complementares.
+
+SciPy: Utilizada para a implementação de um filtro de Wiener espectral, servindo como base de comparação (baseline) para o desempenho da CNN.
+
+🎧 Criação do Conjunto de Dados (Dataset)
+Para garantir a robustez do modelo, o treinamento utiliza uma abordagem de síntese e aumento de dados em tempo de execução:
+
+Sinais de Interesse: Gravações de motores de embarcações reais.
+
+Fontes de Ruído: Gravações de ruído ambiente subaquático.
+
+Superposição Controlada: Os pares de treinamento (sinal ruidoso vs. sinal limpo) são gerados inserindo trechos de ruído ambiente sobre os segmentos de motor.
+
+Relação Sinal-Ruído (SNR): A intensidade do ruído inserido é sorteada aleatoriamente dentro de um intervalo de -12 dB a +15 dB, preparando a rede para operar em diversas condições adversas de SNR.
+
+✨ Aplicação e Resultados
+Validação em Cenário Real: O modelo treinado foi aplicado e validado com sucesso em um cenário prático utilizando a gravação de ruído irradiado de uma embarcação sob fortes condições de chuva (arquivos de teste: navio_chuva.wav e referência navio_limpo.wav).
+
+Preservação das Características Iniciais: O sinal processado pela rede neural é reconstruído e salvo automaticamente com o sufixo _cnn, garantindo a preservação exata da taxa de amostragem original.
+
+Análise Comparativa: O processamento em lote gera automaticamente os espectrogramas lado a lado e uma tabela de métricas, permitindo comparar diretamente a eficácia da CNN com os sinais originais e com a filtragem clássica.
+
+
