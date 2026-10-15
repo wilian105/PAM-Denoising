@@ -7,6 +7,7 @@ Repositório dedicado à implementação de um Filtro de Wiener para redução d
 A implementação processa múltiplos arquivos de áudio ruidosos simultaneamente. O fluxo de trabalho inclui o pareamento automático com os respectivos sinais limpos de referência, a aplicação do filtro de Wiener com abordagem decision-directed, o cálculo de métricas de desempenho e a geração de espectrogramas comparativos para facilitar a análise qualitativa — ideal para rotinas de pré-processamento em análises LOFAR e DEMON.
 
 🛠️ Tecnologias Utilizadas
+
 O sistema foi desenvolvido em Python, suportado pelas seguintes bibliotecas:
 
 librosa: Operações de transformação (STFT e ISTFT).
@@ -20,6 +21,7 @@ Pandas: Estruturação e organização das métricas em dados tabulares.
 Matplotlib: Geração e visualização dos espectrogramas.
 
 ✨ Principais Funcionalidades
+
 Pareamento Automático de Arquivos
 O script associa cada sinal ruidoso ao seu respectivo sinal limpo através de convenções de nomenclatura. O algoritmo verifica correspondências diretas de radicais e substituições sistemáticas (ex: chuva por limpo, ruido por limpo). Como critério de reserva (fallback), utiliza o prefixo comum antes do primeiro separador, permitindo que a execução em lote ocorra sem intervenção manual.
 
@@ -30,6 +32,7 @@ Reconstrução e Normalização
 Após a filtragem, o sinal é reconstruído no domínio do tempo (ISTFT) e, quando necessário, normalizado pelo seu valor de pico. Os arquivos resultantes são salvos com o sufixo _wiener, mantendo a taxa de amostragem original.
 
 ⚙️ Metodologia de Filtragem
+
 Para cada par de arquivos processado, a função de filtragem segue o pipeline:
 
 Cálculo da Short-Time Fourier Transform (STFT).
@@ -41,6 +44,7 @@ Aplicação da abordagem decision-directed, incorporando piso espectral e suaviz
 Reconstrução do sinal temporal via ISTFT.
 
 📊 Resultados e Avaliação
+
 Ao final do processamento em lote, o pipeline entrega um conjunto completo de avaliações:
 
 Métricas Quantitativas: Os resultados de cada arquivo são consolidados em uma tabela do Pandas, apresentando também a média geral de desempenho.
