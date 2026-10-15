@@ -1,8 +1,8 @@
 # PAM-Denoising
 PAM-Denoising
-\subsubsection{Observações sobre o Código-Fonte (Apêndice A)}
+Observações sobre o Código-Fonte do filtro de Wiener
 
-O código-fonte completo da implementação do filtro de Wiener, com comentários que identificam cada uma das etapas descritas nesta seção, encontra-se no Apêndice~\ref{ap:wiener}. A implementação foi projetada para processar múltiplos arquivos ruidosos em lote, com pareamento automático com os respectivos sinais limpos de referência, cálculo das métricas de avaliação e geração dos espectrogramas comparativos.
+A implementação foi projetada para processar múltiplos arquivos ruidosos em lote, com pareamento automático com os respectivos sinais limpos de referência, cálculo das métricas de avaliação e geração dos espectrogramas comparativos.
 
 A implementação foi realizada em linguagem Python, com o auxílio das bibliotecas \textit{librosa}, para as operações de \ac{STFT} e \ac{ISTFT}, \textit{NumPy}, para as operações matriciais, \textit{SciPy}, para a suavização do mapa de ganhos, \textit{Pandas}, para a organização das métricas em tabela, e \textit{Matplotlib}, para a geração dos espectrogramas. Os sinais de entrada são carregados por meio de upload de arquivos, sendo os arquivos ruidosos e os arquivos limpos de referência agrupados em dois conjuntos separados.
 
