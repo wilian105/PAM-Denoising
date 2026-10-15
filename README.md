@@ -1,13 +1,48 @@
-# PAM-Denoising
-PAM-Denoising
-Observações sobre o Código-Fonte do filtro de Wiener
+🌊 PAM-Denoising: Filtro de Wiener
+Repositório dedicado à implementação de um Filtro de Wiener para redução de ruído em sinais de Monitoramento Acústico Passivo (PAM). O código foi projetado para processamento em lote de sinais acústicos subaquáticos, automatizando o pareamento de dados, a filtragem e a extração de métricas de avaliação.
 
-A implementação foi projetada para processar múltiplos arquivos ruidosos em lote, com pareamento automático com os respectivos sinais limpos de referência, cálculo das métricas de avaliação e geração dos espectrogramas comparativos.
+📋 Visão Geral
+A implementação processa múltiplos arquivos de áudio ruidosos simultaneamente. O fluxo de trabalho inclui o pareamento automático com os respectivos sinais limpos de referência, a aplicação do filtro de Wiener com abordagem decision-directed, o cálculo de métricas de desempenho e a geração de espectrogramas comparativos para facilitar a análise qualitativa — ideal para rotinas de pré-processamento em análises LOFAR e DEMON.
 
-A implementação foi realizada em linguagem Python, com o auxílio das bibliotecas \textit{librosa}, para as operações de \ac{STFT} e \ac{ISTFT}, \textit{NumPy}, para as operações matriciais, \textit{SciPy}, para a suavização do mapa de ganhos, \textit{Pandas}, para a organização das métricas em tabela, e \textit{Matplotlib}, para a geração dos espectrogramas. Os sinais de entrada são carregados por meio de upload de arquivos, sendo os arquivos ruidosos e os arquivos limpos de referência agrupados em dois conjuntos separados.
+🛠️ Tecnologias Utilizadas
+O sistema foi desenvolvido em Python, suportado pelas seguintes bibliotecas:
 
-O pareamento entre cada sinal ruidoso e o respectivo sinal limpo é realizado por uma função que compara os nomes dos arquivos com base em convenções de nomenclatura. A função verifica correspondências diretas entre radicais dos nomes, substituições sistemáticas de termos como \texttt{chuva} por \texttt{limpo} e \texttt{ruido} por \texttt{limpo}, e, como critério de reserva, o prefixo comum antes do primeiro separador. Esse procedimento permite que o processamento em lote seja executado sem intervenção manual na associação entre arquivos.
+librosa: Operações de transformação (STFT e ISTFT).
 
-Para cada par de arquivos, a função de filtragem calcula a \ac{STFT}, estima a densidade espectral de potência do ruído a partir do trecho inicial, aplica a abordagem \textit{decision-directed} com piso espectral e suavização, reconstrói o sinal no domínio do tempo por meio da \ac{STFT} inversa e normaliza o resultado pelo valor de pico quando necessário. A duração do trecho inicial utilizado para estimar o ruído é ajustada automaticamente ao menor valor entre 20~s e um quarto da duração total do sinal, evitando que a estimativa ultrapasse a porção disponível em arquivos curtos.
+NumPy: Processamento de operações matriciais.
 
-Os sinais processados são armazenados em arquivos com o sufixo \texttt{\_wiener}, preservando a taxa de amostragem original. Ao final do processamento, as métricas calculadas para cada arquivo são reunidas em uma tabela e a média geral é apresentada. Os espectrogramas comparativos entre o sinal ruidoso, o sinal processado pelo filtro de Wiener e o sinal limpo de referência são gerados para cada arquivo, permitindo a avaliação qualitativa do impacto do denoising sobre as representações espectrais. Os arquivos processados são compactados em um arquivo \texttt{.zip} para facilitar o armazenamento e a transferência dos resultados.
+SciPy: Suavização do mapa de ganhos espectrais.
+
+Pandas: Estruturação e organização das métricas em dados tabulares.
+
+Matplotlib: Geração e visualização dos espectrogramas.
+
+✨ Principais Funcionalidades
+Pareamento Automático de Arquivos
+O script associa cada sinal ruidoso ao seu respectivo sinal limpo através de convenções de nomenclatura. O algoritmo verifica correspondências diretas de radicais e substituições sistemáticas (ex: chuva por limpo, ruido por limpo). Como critério de reserva (fallback), utiliza o prefixo comum antes do primeiro separador, permitindo que a execução em lote ocorra sem intervenção manual.
+
+Estimativa Dinâmica de Ruído
+A duração do trecho inicial utilizado para estimar a densidade espectral do ruído é ajustada automaticamente. O sistema utiliza o menor valor entre 20 segundos e 1/4 da duração total do sinal, garantindo que a estimativa não ultrapasse a porção disponível em áudios mais curtos.
+
+Reconstrução e Normalização
+Após a filtragem, o sinal é reconstruído no domínio do tempo (ISTFT) e, quando necessário, normalizado pelo seu valor de pico. Os arquivos resultantes são salvos com o sufixo _wiener, mantendo a taxa de amostragem original.
+
+⚙️ Metodologia de Filtragem
+Para cada par de arquivos processado, a função de filtragem segue o pipeline:
+
+Cálculo da Short-Time Fourier Transform (STFT).
+
+Estimativa da densidade espectral de potência do ruído com base no trecho inicial isolado.
+
+Aplicação da abordagem decision-directed, incorporando piso espectral e suavização para mitigar artefatos (ruído musical).
+
+Reconstrução do sinal temporal via ISTFT.
+
+📊 Resultados e Avaliação
+Ao final do processamento em lote, o pipeline entrega um conjunto completo de avaliações:
+
+Métricas Quantitativas: Os resultados de cada arquivo são consolidados em uma tabela do Pandas, apresentando também a média geral de desempenho.
+
+Análise Qualitativa: Geração automática de espectrogramas comparativos lado a lado (Sinal Ruidoso vs. Filtrado por Wiener vs. Sinal Limpo).
+
+Exportação Prática: Todos os sinais processados (_wiener), espectrogramas e tabelas de métricas são compactados em um único arquivo .zip para facilitar o armazenamento e a transferência dos resultados.
