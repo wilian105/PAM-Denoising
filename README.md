@@ -1,7 +1,9 @@
 🌊 PAM-Denoising: Filtro de Wiener
+
 Repositório dedicado à implementação de um Filtro de Wiener para redução de ruído em sinais de Monitoramento Acústico Passivo (PAM). O código foi projetado para processamento em lote de sinais acústicos subaquáticos, automatizando o pareamento de dados, a filtragem e a extração de métricas de avaliação.
 
 📋 Visão Geral
+
 A implementação processa múltiplos arquivos de áudio ruidosos simultaneamente. O fluxo de trabalho inclui o pareamento automático com os respectivos sinais limpos de referência, a aplicação do filtro de Wiener com abordagem decision-directed, o cálculo de métricas de desempenho e a geração de espectrogramas comparativos para facilitar a análise qualitativa — ideal para rotinas de pré-processamento em análises LOFAR e DEMON.
 
 🛠️ Tecnologias Utilizadas
