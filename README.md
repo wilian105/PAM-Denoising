@@ -54,6 +54,9 @@ Análise Qualitativa: Geração automática de espectrogramas comparativos lado 
 Exportação Prática: Todos os sinais processados (_wiener), espectrogramas e tabelas de métricas são compactados em um único arquivo .zip para facilitar o armazenamento e a transferência dos resultados.
 
 
+
+
+
 🌊 PAM-Denoising: Rede Neural Convolucional (CNN)
 
 Repositório dedicado à implementação de uma Rede Neural Convolucional (CNN) para redução de ruído em sinais de Monitoramento Acústico Passivo (PAM). O código abrange o pipeline completo de deep learning: desde a geração de conjuntos de dados sintéticos até a arquitetura da rede, rotina de treinamento, reconstrução temporal do sinal e extração de métricas de avaliação.
